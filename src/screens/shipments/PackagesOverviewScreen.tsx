@@ -30,10 +30,34 @@ import { RootStackScreenProps } from '../../types/navigation';
 import { RerfColors, RerfShadows } from '../../constants/theme';
 
 export const PackagesOverviewScreen: React.FC<RootStackScreenProps<'DesglosePaquetes'>> = ({ navigation }) => {
-  const { shipments, user } = useApp();
+  const { user } = useApp(); // Quitamos 'shipments' del context temporalmente
   const [search, setSearch] = useState<string>('');
 
-  const filtered = shipments.filter(s =>
+  // --- INICIO: DATOS DE PRUEBA (MOCK) PARA EXCALIDRAW ---
+  const shipmentsPrueba: any[] = [
+    {
+      id: 'paquete-1',
+      status: 'entregado',
+      delivery_address: 'Jalapa, Guatemala',
+      recipient_name: 'usuario2',
+      tracking_number: 'ORD-9841',
+      description: 'Caja con materiales',
+      total_amount: 45.00
+    },
+    {
+      id: 'paquete-2',
+      status: 'en_transito',
+      delivery_address: 'Ciudad de Guatemala',
+      recipient_name: 'usuario3',
+      tracking_number: 'ORD-5522',
+      description: 'Documentos frágiles',
+      total_amount: 25.00
+    }
+  ];
+  // --- FIN: DATOS DE PRUEBA ---
+
+  // Ahora filtramos nuestra lista de prueba en lugar de la vacía
+  const filtered = shipmentsPrueba.filter(s =>
     s.tracking_number.toLowerCase().includes(search.toLowerCase()) ||
     s.recipient_name.toLowerCase().includes(search.toLowerCase()) ||
     s.description.toLowerCase().includes(search.toLowerCase())
@@ -108,6 +132,33 @@ export const PackagesOverviewScreen: React.FC<RootStackScreenProps<'DesglosePaqu
             </View>
           }
         />
+      </View>
+      {/* --- Barra inferior funcional --- */}
+      <View style={styles.bottomTabBar}>
+        <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Principal')}>
+          <Ionicons name="menu-outline" size={24} color="#3B82F6" />
+          <Text style={[styles.tabText, { color: '#3B82F6' }]}>App</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('SolicitudAlmacenaje')}>
+          <Ionicons name="cube-outline" size={24} color="#94A3B8" />
+          <Text style={styles.tabText}>Mi bodega</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('TrackingGPS')}>
+          <Ionicons name="navigate-outline" size={24} color="#94A3B8" />
+          <Text style={styles.tabText}>GPS</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('ChatSoporte')}>
+          <Ionicons name="chatbubble-outline" size={24} color="#94A3B8" />
+          <Text style={styles.tabText}>Contacto</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Menu')}>
+          <Ionicons name="person-outline" size={24} color="#94A3B8" />
+          <Text style={styles.tabText}>Perfil</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -195,6 +246,25 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 14,
+    color: '#94A3B8',
+  },
+  bottomTabBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
+    paddingVertical: 12,
+  },
+  tabItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabText: {
+    fontSize: 10,
+    marginTop: 4,
+    fontWeight: '700',
     color: '#94A3B8',
   },
 });

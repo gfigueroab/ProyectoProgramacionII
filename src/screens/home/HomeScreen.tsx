@@ -144,12 +144,13 @@ export const HomeScreen: React.FC<MainTabCompositeScreenProps<'InicioTab'>> = ({
               <Text style={styles.gridCardText}>Entregas</Text>
             </TouchableOpacity>
 
-            {/* Botón Pedidos (Pantalla 8) */}
+            {/* Botón Pedidos (Conectado a Pantalla 29) */}
             <TouchableOpacity 
               style={styles.gridCard}
-              onPress={() => navigation.navigate('Pedidos')}
+              onPress={() => navigation.navigate('DesglosePaquetes')}
               activeOpacity={0.8}
             >
+            
               <View style={[styles.iconCircle, { backgroundColor: RerfColors.primaryYellowLight }]}>
                 <Ionicons name="clipboard-outline" size={28} color={RerfColors.primaryYellowHover} />
               </View>
@@ -171,10 +172,10 @@ export const HomeScreen: React.FC<MainTabCompositeScreenProps<'InicioTab'>> = ({
               <Text style={styles.gridCardText}>Usuarios</Text>
             </TouchableOpacity>
 
-            {/* Botón Enviar Paquete */}
+            {/* Botón Enviar Paquete (Conectado a Pantalla 26) */}
             <TouchableOpacity 
               style={styles.gridCard}
-              onPress={() => navigation.navigate('GestionEnvio')}
+              onPress={() => navigation.navigate('Cotizador')}
               activeOpacity={0.8}
             >
               <View style={[styles.iconCircle, { backgroundColor: '#ECFDF5' }]}>
